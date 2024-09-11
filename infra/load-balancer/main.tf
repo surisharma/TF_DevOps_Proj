@@ -2,7 +2,7 @@ variable "lb_name" {}
 variable "is_external" {}
 variabel "lb_type" {}
 variable "sg_enable_ssh_https" {}
-variable "subnet_ids"
+variable "subnet_ids" {}
 variable "ec2_instance_id" {}
 variable "lb_target_group_attachment_port" {}
 variable "lb_target_group_arn" {}
