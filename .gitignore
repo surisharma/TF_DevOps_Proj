@@ -1,0 +1,9 @@
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+.terraform/
+suri
+suri.pub
+terraform.exe
+terraform.tfstate
+terraform.tfstate.backup
+

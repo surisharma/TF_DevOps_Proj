@@ -5,7 +5,7 @@ variable "sg_enable_ssh_https" {}
 variable "ec2_sg_name_for_python_api" {}
 variable "subnet_id" {}
 variable "user_data_install_apache" {}
-variable "tag_name"
+variable "tag_name" {}
 variable "public_key" {}
 
 output "ssh_connection_string_for_ec2" {
@@ -20,7 +20,7 @@ resource "aws_instance" "dev_proj_1_ec2" {
   ami           = var.ami_id
   instance_type = var.instance_type
   associate_public_ip_address = var.enable_public_ip_address
-  key_name = "aws_key"
+  key_name = var.public_key
   vpc_security_group_ids = [var.sg_enable_ssh_https, var.ec2_sg_name_for_python_api]
   subnet_id = var.subnet_id
   user_data = var.user_data_install_apache

@@ -2,6 +2,18 @@ variable "ec2_sg_name" {}
 variable "vpc_id" {}
 variable "public_subnet_cidr_block" {}
 variable "ec2_sg_name_for_python_api" {}
+
+output "sg_ec2_sg_ssh_http_id" {
+  value = aws_security_group.ec2_sg_ssh_http.id
+}
+output "rds_mysql_sg_id" {
+  value = aws_security_group.rds_mysql_sg.id
+}
+
+output "sg_ec2_for_python_api" {
+  value = aws_security_group.ec2_sg_python_api.id
+
+}
 resource "aws_security_group" "ec2_sg_ssh_http" {
   name        = var.ec2_sg_name
   description = "Enable the Port 22(SSH), Port 80(http) & Port 443(https)"
