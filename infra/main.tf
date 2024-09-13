@@ -22,7 +22,46 @@ module "ec2" {
    subnet_id  = tolist(module.networking.dev_proj_1_public_subnets)[0]
    sg_enable_ssh_https = module.security_group.sg_ec2_sg_ssh_http_id
    enable_public_ip_address = true 
-   user_data_install_apache = templatefile("c://Users//ssharma//TF_DevOps_Proj//infra//template//ec2_install_apache.sh", {})
+   user_data_install_apache = templatefile("${path.module}/template/ec2_install_apache.sh", {})
    ec2_sg_name_for_python_api = module.security_group.sg_ec2_for_python_api
 }
+ module "lb-target" {
+   source = "./load-balancer-target-group"
+   lb_target_group_name     = "dev-proj-1-lb-target-group"
+   lb_target_group_port     =  5000
+   lb_target_group_protocol =  "HTTP"
+   vpc_id                   =   module.networking.dev_proj_1_vpc_id
+   ec2_instance_id          =   module.ec2.dev_proj_1_ec2_instance_id
 
+ }
+ module "aws_ceritification_manager" {
+  source         = "./certificate-manager"
+  domain_name    = var.domain_name
+  hosted_zone_id = module.hosted_zone.hosted_zone_id
+}
+
+module "load_balancer" {
+   source               = "./load-balancer"
+   lb_name              = "dev-proj-1-alb"
+   lb_type              = var.lb_type
+   is_external          = false
+   sg_enable_ssh_https  = module.security_group.sg_ec2_sg_ssh_http_id
+   subnet_ids           = tolist(module.networking.dev_proj_1_public_subnets)
+   ec2_instance_id      = module.ec2.dev_proj_1_ec2_instance_id
+   lb_target_group_arn  = module.lb-target.dev_proj_1_lb_target_group_arn
+   lb_target_group_attachment_port = 5000
+   lb_listner_port                =  5000
+   lb_listner_protocol            = "HTTP"
+   lb_listner_default_action      = "forward"
+   lb_https_listner_port          = 443
+   lb_https_listner_protocol       = "HTTPS"
+   dev_proj_1_acm_arn              = module.aws_ceritification_manager.dev_proj_1_acm_arn
+}
+
+module "hosted_zone" {
+   source             = "./hosted-zone"
+   domain_name        = var.domain_name
+   aws_lb_dns_name    = module.load_balancer.aws_lb_dns_name
+   aws_lb_zone_id     =  module.load_balancer.aws_lb_zone_id
+    
+}

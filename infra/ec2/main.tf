@@ -20,7 +20,7 @@ resource "aws_instance" "dev_proj_1_ec2" {
   ami           = var.ami_id
   instance_type = var.instance_type
   associate_public_ip_address = var.enable_public_ip_address
-  key_name = var.public_key
+  key_name = "aws-key"
   vpc_security_group_ids = [var.sg_enable_ssh_https, var.ec2_sg_name_for_python_api]
   subnet_id = var.subnet_id
   user_data = var.user_data_install_apache
