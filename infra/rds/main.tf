@@ -20,11 +20,11 @@ resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "8.0"
   identifier           =  var.mysql_db_identifier
-  instance_class       = "db.t2.micro"
+  instance_class       = "db.t3.micro"
   username             = var.mysql_username
   password             = var.mysql_password
   vpc_security_group_ids = [var.rds_mysql_sg_id]
-  db_subnet_group_name  = aws_db_subnet_group.dev_proje_1_db_subnet_group.name
+  db_subnet_group_name  = aws_db_subnet_group.dev_proj_1_db_subnet_group.name
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot     = true
   apply_immediately       = true

@@ -65,3 +65,20 @@ module "hosted_zone" {
    aws_lb_zone_id     =  module.load_balancer.aws_lb_zone_id
     
 }
+module "rds_db_instance" {
+   source                = "./rds"
+   mysql_dbname          = "devprojdb"
+   db_subnet_group_name  = "dev_proj_1_rds_subnet_group"
+   subnet_groups         = tolist(module.networking.dev_proj_1_private_subnets)
+   rds_mysql_sg_id       = module.security_group.rds_mysql_sg_id
+   mysql_db_identifier  = "mydb"
+   mysql_username       = local.secret["mysql_username"]
+   mysql_password       = local.secret["mysql_password"]
+   
+}
+data "aws_secretsmanager_secret_version" "mysecret" {
+    secret_id = "my-database-secret"  
+}
+locals {
+  secret = jsondecode(data.aws_secretsmanager_secret_version.mysecret.secret_string)
+}
