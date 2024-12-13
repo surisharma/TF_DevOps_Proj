@@ -11,7 +11,7 @@ us_availability_zone = ["eu-central-1a", "eu-central-1b"]
 public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsDl775nJAUJC8r8TKcOV/KVRkGUswA+9P5MaQPzeLu"
 
 ec2_ami_id = "ami-0a628e1e89aaedf80"
-instance_type = "t2.meduim"
+instance_type = "t2.medium"
 
 ec2_user_data_install_apache = ""
 
