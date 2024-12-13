@@ -72,8 +72,10 @@ module "rds_db_instance" {
    subnet_groups         = tolist(module.networking.dev_proj_1_private_subnets)
    rds_mysql_sg_id       = module.security_group.rds_mysql_sg_id
    mysql_db_identifier  = "mydb"
-   mysql_username       = local.secret["mysql_username"]
-   mysql_password       = local.secret["mysql_password"]
+ # mysql_username       = local.secret["mysql_username"]
+   mysql_username       = "dbuser"
+  #mysql_password       = local.secret["mysql_password"]
+   mysql_password       = "dbpassword"
    
 }
 data "aws_secretsmanager_secret_version" "mysecret" {
