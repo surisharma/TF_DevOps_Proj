@@ -26,7 +26,7 @@ resource "aws_lb" "dev_proj_1_lb" {
      load_balancer_type   = var.lb_type
      security_groups      = [var.sg_enable_ssh_https]
      subnets              = var.subnet_ids
-     enable_deletion_protection = true
+     enable_deletion_protection = false
      tags = {
        Name = "dev-lb"
      }
