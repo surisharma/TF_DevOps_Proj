@@ -78,9 +78,9 @@ module "rds_db_instance" {
    mysql_password       = "dbpassword"
    
 }
-data "aws_secretsmanager_secret_version" "mysecret" {
+/**data "aws_secretsmanager_secret_version" "mysecret" {
     secret_id = "my-database-secret"  
 }
 locals {
   secret = jsondecode(data.aws_secretsmanager_secret_version.mysecret.secret_string)
-}
+}**/
