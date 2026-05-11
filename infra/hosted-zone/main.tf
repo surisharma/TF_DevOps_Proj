@@ -8,7 +8,7 @@ data "aws_route53_zone" "dev_proj_1_lalitbainsla_co_in" {
 resource "aws_route53_record" "lb_record" {
   zone_id = data.aws_route53_zone.dev_proj_1_lalitbainsla_co_in.zone_id
   name    = var.domain_name
-  type    = "A"
+  type    = "A"       ## This is A record
 
   alias {
     name                   = var.aws_lb_dns_name
