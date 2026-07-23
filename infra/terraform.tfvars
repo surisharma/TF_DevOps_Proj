@@ -15,4 +15,4 @@ instance_type = "t2.medium"
 
 ec2_user_data_install_apache = ""
 
-domain_name = "lalitbainsla.co.in"
+domain_name = "suridevops.co.in"
